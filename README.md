@@ -781,6 +781,8 @@ Every command takes `-v`/`--verbose`, `-q`/`--quiet` and `--help`, placed after
 the command name. Each one also works as `aws-toolbox <command>`. Logs go to
 stderr; stdout carries only results (diffs, JSON, shell exports). On a terminal,
 warnings are yellow and errors red; set `NO_COLOR=1` to turn that off.
+`-v` turns on debug logging for the toolbox only; `botocore`, `boto3` and
+`urllib3` stay at INFO so credentials and request headers are never logged.
 
 ## Platform notes
 

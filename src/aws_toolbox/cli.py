@@ -34,6 +34,7 @@ def _add_common(parser: argparse.ArgumentParser) -> None:
 
 
 LOG_FORMAT = "%(asctime)s %(levelname)-8s %(name)s — %(message)s"
+SDK_LOGGERS = ("botocore", "boto3", "urllib3")
 LOG_COLORS = {logging.WARNING: "\033[33m", logging.ERROR: "\033[31m", logging.CRITICAL: "\033[1;31m"}
 
 
@@ -57,7 +58,12 @@ def _setup_logging(args: argparse.Namespace) -> None:
     formatter = ColorFormatter if _use_color(sys.stderr) else logging.Formatter
     handler.setFormatter(formatter(LOG_FORMAT, datefmt="%Y-%m-%dT%H:%M:%S"))
     logging.basicConfig(level=level, handlers=[handler])
-    if not args.verbose:
+    if args.verbose:
+        # At DEBUG these log request headers and response bodies, i.e. the
+        # session token and the AssumeRole secret key.
+        for name in SDK_LOGGERS:
+            logging.getLogger(name).setLevel(logging.INFO)
+    else:
         logging.getLogger("botocore").setLevel(logging.WARNING)
 
 
