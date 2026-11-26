@@ -4,6 +4,10 @@ version = "0.1.0"
 description = "Functions and configuration to streamline AWS CLI and boto3 use on macOS and Linux"
 readme = "README.md"
 requires-python = ">=3.11"
+license-files = ["LICENSE"]
+classifiers = [
+    "License :: Other/Proprietary License",
+]
 dependencies = [
     "boto3>=1.34",
     "botocore>=1.34",
